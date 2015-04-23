@@ -17,7 +17,8 @@ rmssd = zeros(1,numberOfWindows(2));
  
  
  
-thr_tpr(1:numberOfWindows(2)) = .54;
+thr_tpr_low(1:numberOfWindows(2)) = .54;
+thr_tpr_high(1:numberOfWindows(2)) = .77;
 thr_se(1:numberOfWindows(2)) = .7;
 thr_rmssd(1:numberOfWindows(2)) = .1*mean(RRintervals);
 detected = zeros(1,28);
@@ -28,7 +29,7 @@ window = reshaped(:,i);
 se(i) = shannonEntropy(window);
 rmssd(i) = rootMeanSquareSuccessiveDifferences(window);
 tpr_ratio(i) = tpr_actual(i) / (128-16-2);
-if (tpr_ratio(i) > thr_tpr(i)) & (se(i)> thr_se(i)) & (rmssd(i) > thr_rmssd)
+if (tpr_ratio(i) > thr_tpr_low(i)) & (tpr_ratio(i) < thr_tpr_high(i))& (se(i)> thr_se(i)) & (rmssd(i) > thr_rmssd)
 	detected(i) = 1;
 end
 end
@@ -40,7 +41,7 @@ x=1:numberOfWindows(2);
 figure
 subplot(5,1,2),plot(detected),title('Detected AFIB');
 subplot(5,1,1),plot(ekg),title('EKG');
-subplot(5,1,3),plot(x,tpr_ratio,x,thr_tpr),title('Turning Point Ratio');
+subplot(5,1,3),plot(x,tpr_ratio,x,thr_tpr_low,x,thr_tpr_high),title('Turning Point Ratio');
 subplot(5,1,4),plot(x,se,x,thr_se),title('Shannon Entropy');
 subplot(5,1,5),plot(x,rmssd,x,thr_rmssd),title('Root mean squared of Successive Differences');
 
