@@ -8,7 +8,7 @@
 clear
 clc
 close all
-datapath = 'afdb/04048';
+datapath = 'afdb/04126';
 [t, ekg]=rdsamp(datapath,1,500000);
 wqrs(datapath);
 [ann,type,subtype,chan,num,comments] = rdann(datapath,'wqrs');

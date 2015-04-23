@@ -17,7 +17,7 @@ rmssd = zeros(1,numberOfWindows(2));
  
  
  
-thr_tpr(1:numberOfWindows(2)) = .77;
+thr_tpr(1:numberOfWindows(2)) = .54;
 thr_se(1:numberOfWindows(2)) = .7;
 thr_rmssd(1:numberOfWindows(2)) = .1*mean(RRintervals);
 detected = zeros(1,28);
@@ -27,7 +27,7 @@ window = reshaped(:,i);
 [tpr_expected(i),tpr_actual(i),tpr_sigma_expected(i),tpr_sigma_real(i)] = turningPointRatio(window);
 se(i) = shannonEntropy(window);
 rmssd(i) = rootMeanSquareSuccessiveDifferences(window);
-tpr_ratio(i) = tpr_actual(i) / tpr_expected(i);
+tpr_ratio(i) = tpr_actual(i) / (128-16-2);
 if (tpr_ratio(i) > thr_tpr(i)) & (se(i)> thr_se(i)) & (rmssd(i) > thr_rmssd)
 	detected(i) = 1;
 end
