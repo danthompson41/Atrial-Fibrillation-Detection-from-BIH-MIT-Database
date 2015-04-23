@@ -8,9 +8,10 @@
 clear
 clc
 close all
-[t, ekg]=rdsamp('afdb/04043',1,500000);
-wqrs('afdb/04043');
-[ann,type,subtype,chan,num,comments] = rdann('afdb/04043','wqrs');
+datapath = 'afdb/04043';
+[t, ekg]=rdsamp(datapath,1,500000);
+wqrs(datapath);
+[ann,type,subtype,chan,num,comments] = rdann(datapath,'wqrs');
  max_indices = [0];
  
 	%ann is a vector of the index of the start of each QRS wave
